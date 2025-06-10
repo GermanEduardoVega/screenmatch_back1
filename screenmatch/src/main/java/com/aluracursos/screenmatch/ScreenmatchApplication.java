@@ -15,7 +15,7 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("funcionando");
+		System.out.println("Consumiendo datos de la serie");
 
 		var consumoApi = new ConsumoApi();
 		var apikey = System.getenv("OMDB_API_KEY");	//configurar la variable de entorno
