@@ -1,5 +1,7 @@
 package com.aluracursos.screenmatch;
 
+import ch.qos.logback.core.util.LocationUtil;
+import com.aluracursos.screenmatch.service.ConsumoApi;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,5 +16,10 @@ public class ScreenmatchApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println("funcionando");
+
+		var consumoApi = new ConsumoApi();
+		var apikey = System.getenv("OMDB_API_KEY");	//configurar la variable de entorno
+		var json = consumoApi.obtenerDatos("https://www.omdbapi.com/?t=game+of+thrones&apikey=" + apikey );
+		System.out.println(json);
 	}
 }
