@@ -1,7 +1,9 @@
 package com.aluracursos.screenmatch;
 
 import ch.qos.logback.core.util.LocationUtil;
+import com.aluracursos.screenmatch.model.DatosSerie;
 import com.aluracursos.screenmatch.service.ConsumoApi;
+import com.aluracursos.screenmatch.service.ConvierteDatos;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,5 +23,10 @@ public class ScreenmatchApplication implements CommandLineRunner {
 		var apikey = System.getenv("OMDB_API_KEY");	//configurar la variable de entorno
 		var json = consumoApi.obtenerDatos("https://www.omdbapi.com/?t=game+of+thrones&apikey=" + apikey );
 		System.out.println(json);
+
+		System.out.println("---CONVIERTE DATOS---");
+		ConvierteDatos conversor = new ConvierteDatos();
+		var datos = conversor.obtenerDatos(json, DatosSerie.class);
+		System.out.println(datos);
 	}
 }
