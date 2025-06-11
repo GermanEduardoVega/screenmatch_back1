@@ -4,6 +4,7 @@ import ch.qos.logback.core.util.LocationUtil;
 import com.aluracursos.screenmatch.model.DatosEpisodio;
 import com.aluracursos.screenmatch.model.DatosSerie;
 import com.aluracursos.screenmatch.model.DatosTemporadas;
+import com.aluracursos.screenmatch.principal.Principal;
 import com.aluracursos.screenmatch.service.ConsumoApi;
 import com.aluracursos.screenmatch.service.ConvierteDatos;
 import org.springframework.boot.CommandLineRunner;
@@ -22,33 +23,8 @@ public class ScreenmatchApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		System.out.println("Consumiendo datos de la serie");
 
-		var consumoApi = new ConsumoApi();
-		var apikey = System.getenv("OMDB_API_KEY");	//configurar la variable de entorno
-		var json = consumoApi.obtenerDatos("https://www.omdbapi.com/?t=game+of+thrones&apikey=" + apikey );
-		System.out.println(json);
-
-		System.out.println("\n---CONVIERTE DATOS---");
-		ConvierteDatos conversor = new ConvierteDatos();
-		var datos = conversor.obtenerDatos(json, DatosSerie.class);
-		System.out.println(datos);
-
-		System.out.println("\n----Consumo Api especifica de los episodios---");
-		json = consumoApi.obtenerDatos("https://www.omdbapi.com/?t=game+of+thrones&Season=1&episode=1&apikey=" + apikey);
-		DatosEpisodio episodios = conversor.obtenerDatos(json, DatosEpisodio.class);
-		System.out.println(episodios);
-
-		System.out.println("\n---Modelando los datos de todas las temporadas ---");
-		List<DatosTemporadas> datosTemporadasList = new ArrayList<>();
-		for (int i = 1; i<= datos.totalDeTemporadas() ; i++) {
-			json = consumoApi.obtenerDatos("https://www.omdbapi.com/?t=game+of+thrones&Season="+ i + "&apikey=" + apikey);
-			var datosTemporadas = conversor.obtenerDatos(json, DatosTemporadas.class);
-			datosTemporadasList.add(datosTemporadas);
-
-		}
-		System.out.println("---Datos Temporadas----");
-		datosTemporadasList.forEach(System.out::println);
-
+		Principal principal = new Principal();
+		principal.muestraElMenu();
 	}
 }
