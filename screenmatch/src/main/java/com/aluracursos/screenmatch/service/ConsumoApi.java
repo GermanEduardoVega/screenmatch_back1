@@ -17,9 +17,12 @@ public class ConsumoApi {
             response = client
                     .send(request, HttpResponse.BodyHandlers.ofString());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error al intentar obtener datos de la API: " + e.getMessage(), e);
+
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt(); // Restaurar el estado de interrupción
+            throw new RuntimeException("La solicitud fue interrumpida: " + e.getMessage(), e);
+
         }
 
         String json = response.body();
