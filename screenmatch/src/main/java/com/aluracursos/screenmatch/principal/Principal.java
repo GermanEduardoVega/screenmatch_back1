@@ -122,5 +122,11 @@ public class Principal {
         } else {
             System.out.println("Episodio no encontrado");
         }
+
+        Map<Integer , Double> evaluacionesPorTemporada = episodios.stream()
+                .collect(Collectors.groupingBy(Episodio::getTemporada,
+                        Collectors.averagingDouble(Episodio::getEvaluacion)));
+        System.out.println("\n---EVALUACIONES POR TEMPORADA---");
+        System.out.println(evaluacionesPorTemporada);
     }
 }
