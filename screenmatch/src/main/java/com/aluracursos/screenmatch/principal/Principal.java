@@ -9,10 +9,7 @@ import com.aluracursos.screenmatch.service.ConvierteDatos;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -98,7 +95,7 @@ public class Principal {
         episodios.forEach(System.out::println);
 
         // Busqueda de episodios a partir de x año
-        System.out.println("a partir de que año deseas ver los episodios?");
+        System.out.println("\na partir de que año deseas ver los episodios?\n");
         var fecha = teclado.nextInt();
         teclado.nextLine();
 
@@ -112,5 +109,18 @@ public class Principal {
                                 " Episodio: " + e.getTitulo() +
                                 " Fecha de Lanzamiento: " + e.getFechaDeLanzamiento().format(dtf)
                 ));
+
+        //Busqueda de un episodio por su titulo
+        System.out.println("\nEscriba el titulo del episodio que desea ver \n");
+        var pedazoTitulo = teclado.nextLine();
+        Optional<Episodio> episodioBuscado = episodios.stream()
+                .filter(e -> e.getTitulo().toUpperCase().contains(pedazoTitulo.toUpperCase()))
+                .findFirst();
+        if (episodioBuscado.isPresent()){
+            System.out.println("\nEpisodio encontrado");
+            System.out.println("Temporada: " + episodioBuscado.get());
+        } else {
+            System.out.println("Episodio no encontrado");
+        }
     }
 }
