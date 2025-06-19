@@ -74,7 +74,7 @@ public class Principal {
                 .collect(Collectors.toList());
 
 
-        // Obtener los top 5 episodios
+        // Obtener los top 5 episodios  funcion peek para mensajes filtro
         System.out.println("\n---TOP 5 EPISODIOS---");
         datosEpisodios.stream()
                 .filter(e -> !e.evaluacion().equalsIgnoreCase("N/A"))
